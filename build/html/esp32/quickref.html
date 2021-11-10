@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ESP32 快速参考手册 &mdash; MicroPython 1.15 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/customstyle.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ESP32基本信息" href="general.html" />
+    <link rel="prev" title="esp32 — functionality specific to the ESP32" href="../library/esp32.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> MicroPython
+            <img src="../_static/01studio-white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.15
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../library/index.html">MicroPython 相关库</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ESP32 快速参考手册</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="general.html">ESP32基本信息</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/intro.html">ESP32 MicroPython上手指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#micropython">安装MicroPython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id1">通用控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#networking">Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id2">延时和时间</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id3">定时器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gpio">引脚和GPIO口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#uart-serial-bus">UART (serial bus)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pwm">PWM (脉宽调制)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#adc">ADC (模数转换)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#spi">软件SPI总线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">硬件SPI总线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#softi2c">SoftI2C总线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#hardware-i2c-bus">Hardware I2C bus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rtc">实时时钟(RTC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#wdt-watchdog-timer">WDT (Watchdog timer)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">深度睡眠模式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sd-card">SD card</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rmt">RMT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#onewire">单总线驱动（Onewire）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#neopixel-and-apa106-driver">NeoPixel and APA106 driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id6">电容触摸</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dht">DHT 驱动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#webrepl-web">WebREPL (Web浏览器交互提示)</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MicroPython</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>ESP32 快速参考手册</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/esp32/quickref.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="esp32">
+<span id="esp32-quickref"></span><h1>ESP32 快速参考手册<a class="headerlink" href="#esp32" title="Permalink to this headline">¶</a></h1>
+<a class="reference internal image-reference" href="http://www.01studio.org/micropython/picture/pyWiFi-ESP32_pinout.png"><img alt="pyWiFi-ESP32 pinout" src="http://www.01studio.org/micropython/picture/pyWiFi-ESP32_pinout.png" style="width: 700px;" /></a>
+<p>ESP32开发板 (图片来源: 01Studio).</p>
+<p>以下内容是ESP32开发板的快速入门内容。如果这是你第一次使用ESP32开发板，那么建议你先阅读以下两个章节熟悉一下：</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="general.html">ESP32基本信息</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial/intro.html">ESP32 MicroPython上手指南</a></li>
+</ul>
+</div>
+<section id="micropython">
+<h2>安装MicroPython<a class="headerlink" href="#micropython" title="Permalink to this headline">¶</a></h2>
+<p>请参考教程的相应部分: <a class="reference internal" href="tutorial/intro.html#esp32-intro"><span class="std std-ref">ESP32 MicroPython上手指南</span></a>. 它还包括故障排除小节。</p>
+</section>
+<section id="id1">
+<h2>通用控制<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>MicroPython 的串口交互调试（REPL）在 UART0 (GPIO1=TX, GPIO3=RX)，波特率为：115200。
+Tab按键补全功能对于找到每个对象的使用方法非常有用。 粘贴模式 (ctrl-E) 对需要复制比较多
+的python代码到REPL是非常有用。</p>
+<p>The <a class="reference internal" href="../library/machine.html#module-machine" title="machine: functions related to the hardware"><code class="xref py py-mod docutils literal notranslate"><span class="pre">machine</span></code></a> module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">machine</span>
+
+<span class="n">machine</span><span class="o">.</span><span class="n">freq</span><span class="p">()</span>          <span class="c1"># 获取CPU当前工作频率</span>
+<span class="n">machine</span><span class="o">.</span><span class="n">freq</span><span class="p">(</span><span class="mi">240000000</span><span class="p">)</span> <span class="c1"># 设置CPU的工作频率为 240 MHz</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="../library/esp.html#module-esp" title="esp: functions related to the ESP8266 and ESP32"><code class="xref py py-mod docutils literal notranslate"><span class="pre">esp</span></code></a> module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">esp</span>
+
+<span class="n">esp</span><span class="o">.</span><span class="n">osdebug</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>       <span class="c1"># 关闭原厂 O/S 调试信息</span>
+<span class="n">esp</span><span class="o">.</span><span class="n">osdebug</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>          <span class="c1"># 将原厂 O/S 调试信息重定向到 UART(0) 输出</span>
+
+<span class="c1"># 与flash交互的低级方法</span>
+<span class="n">esp</span><span class="o">.</span><span class="n">flash_size</span><span class="p">()</span>
+<span class="n">esp</span><span class="o">.</span><span class="n">flash_user_start</span><span class="p">()</span>
+<span class="n">esp</span><span class="o">.</span><span class="n">flash_erase</span><span class="p">(</span><span class="n">sector_no</span><span class="p">)</span>
+<span class="n">esp</span><span class="o">.</span><span class="n">flash_write</span><span class="p">(</span><span class="n">byte_offset</span><span class="p">,</span> <span class="n">buffer</span><span class="p">)</span>
+<span class="n">esp</span><span class="o">.</span><span class="n">flash_read</span><span class="p">(</span><span class="n">byte_offset</span><span class="p">,</span> <span class="n">buffer</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <a class="reference internal" href="../library/esp32.html#module-esp32" title="esp32: functionality specific to the ESP32"><code class="xref py py-mod docutils literal notranslate"><span class="pre">esp32</span></code></a> module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">esp32</span>
+
+<span class="n">esp32</span><span class="o">.</span><span class="n">hall_sensor</span><span class="p">()</span>     <span class="c1"># 读取内部霍尔传感器</span>
+<span class="n">esp32</span><span class="o">.</span><span class="n">raw_temperature</span><span class="p">()</span> <span class="c1"># 读取内部温度传感器，在MCU上, 单位：华氏度F</span>
+<span class="n">esp32</span><span class="o">.</span><span class="n">ULP</span><span class="p">()</span>             <span class="c1"># 使用超低功耗协处理器（ULP）</span>
+</pre></div>
+</div>
+<p>请注意ESP32内部温度读取数值会比实际要高，因为芯片工作时候回发热。
+从睡眠状态唤醒后立即读取温度传感器可以最大限度地减少这种影响。</p>
+</section>
+<section id="networking">
+<h2>Networking<a class="headerlink" href="#networking" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="../library/network.html#module-network" title="network: network configuration"><code class="xref py py-mod docutils literal notranslate"><span class="pre">network</span></code></a> module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">network</span>
+
+<span class="n">wlan</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">WLAN</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">STA_IF</span><span class="p">)</span> <span class="c1"># 创建 station 接口</span>
+<span class="n">wlan</span><span class="o">.</span><span class="n">active</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>       <span class="c1"># 激活接口</span>
+<span class="n">wlan</span><span class="o">.</span><span class="n">scan</span><span class="p">()</span>             <span class="c1"># 扫描允许访问的SSID</span>
+<span class="n">wlan</span><span class="o">.</span><span class="n">isconnected</span><span class="p">()</span>      <span class="c1"># 检查创建的station是否连已经接到AP</span>
+<span class="n">wlan</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;essid&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">)</span> <span class="c1"># 连接到指定ESSID网络</span>
+<span class="n">wlan</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="s1">&#39;mac&#39;</span><span class="p">)</span>      <span class="c1"># 获取接口的MAC地址</span>
+<span class="n">wlan</span><span class="o">.</span><span class="n">ifconfig</span><span class="p">()</span>         <span class="c1"># 获取接口的 IP/netmask(子网掩码)/gw(网关)/DNS 地址</span>
+
+<span class="n">ap</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">WLAN</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">AP_IF</span><span class="p">)</span> <span class="c1"># 创捷一个AP热点接口</span>
+<span class="n">ap</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">essid</span><span class="o">=</span><span class="s1">&#39;ESP-AP&#39;</span><span class="p">)</span> <span class="c1"># 激活接口</span>
+<span class="n">ap</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="n">max_clients</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># 设置热点允许连接数量</span>
+<span class="n">ap</span><span class="o">.</span><span class="n">active</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>         <span class="c1"># 设置AP的ESSID名称</span>
+</pre></div>
+</div>
+<p>连接到本地WIFI网络的函数参考:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">do_connect</span><span class="p">():</span>
+    <span class="kn">import</span> <span class="nn">network</span>
+    <span class="n">wlan</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">WLAN</span><span class="p">(</span><span class="n">network</span><span class="o">.</span><span class="n">STA_IF</span><span class="p">)</span>
+    <span class="n">wlan</span><span class="o">.</span><span class="n">active</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">wlan</span><span class="o">.</span><span class="n">isconnected</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;connecting to network...&#39;</span><span class="p">)</span>
+        <span class="n">wlan</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s1">&#39;essid&#39;</span><span class="p">,</span> <span class="s1">&#39;password&#39;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">wlan</span><span class="o">.</span><span class="n">isconnected</span><span class="p">():</span>
+            <span class="k">pass</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;network config:&#39;</span><span class="p">,</span> <span class="n">wlan</span><span class="o">.</span><span class="n">ifconfig</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>一旦网络建立成功，你就可以通过 <a class="reference internal" href="../library/usocket.html#module-usocket" title="usocket: socket module"><code class="xref py py-mod docutils literal notranslate"><span class="pre">socket</span></code></a> 模块创建和使用 TCP/UDP sockets 通讯,
+以及通过 <code class="docutils literal notranslate"><span class="pre">urequests</span></code> 模块非常方便地发送 HTTP 请求。</p>
+</section>
+<section id="id2">
+<h2>延时和时间<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>Use the <a class="reference internal" href="../library/utime.html#module-utime" title="utime: time related functions"><code class="xref py py-mod docutils literal notranslate"><span class="pre">time</span></code></a> module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>           <span class="c1"># 睡眠1秒</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep_ms</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>      <span class="c1"># 睡眠500毫秒</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep_us</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>       <span class="c1"># 睡眠10微妙</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">ticks_ms</span><span class="p">()</span> <span class="c1"># 获取毫秒计时器开始值</span>
+<span class="n">delta</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">ticks_diff</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">ticks_ms</span><span class="p">(),</span> <span class="n">start</span><span class="p">)</span> <span class="c1"># 计算从开始到当前时间的差值</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h2>定时器<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>ESP32拥有4个定时器。使用 <a class="reference internal" href="../library/machine.Timer.html#machine-timer"><span class="std std-ref">machine.Timer</span></a> 类通过设置timer ID号为 0-3</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">Timer</span>
+
+<span class="n">tim0</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">tim0</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">period</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">Timer</span><span class="o">.</span><span class="n">ONE_SHOT</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+
+<span class="n">tim1</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">tim1</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">period</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">Timer</span><span class="o">.</span><span class="n">PERIODIC</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="k">lambda</span> <span class="n">t</span><span class="p">:</span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>该周期的单位为毫秒(ms)</p>
+<p>Virtual timers are not currently supported on this port.</p>
+</section>
+<section id="gpio">
+<span id="pins-and-gpio"></span><h2>引脚和GPIO口<a class="headerlink" href="#gpio" title="Permalink to this headline">¶</a></h2>
+<p>使用 <a class="reference internal" href="../library/machine.Pin.html#machine-pin"><span class="std std-ref">machine.Pin</span></a> 模块:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">Pin</span>
+
+<span class="n">p0</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">OUT</span><span class="p">)</span>    <span class="c1"># 创建对象p0，对应GPIO0口输出</span>
+<span class="n">p0</span><span class="o">.</span><span class="n">on</span><span class="p">()</span>                 <span class="c1"># 设置引脚为 &quot;on&quot; (1)高电平</span>
+<span class="n">p0</span><span class="o">.</span><span class="n">off</span><span class="p">()</span>                <span class="c1"># 设置引脚为 &quot;off&quot; (0)低电平</span>
+<span class="n">p0</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>             <span class="c1"># 设置引脚为 &quot;on&quot; (1)高电平</span>
+
+<span class="n">p2</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">IN</span><span class="p">)</span>     <span class="c1"># 创建对象p2，对应GPIO2口输入</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">p2</span><span class="o">.</span><span class="n">value</span><span class="p">())</span>       <span class="c1"># 获取引脚输入值, 0（低电平） 或者 1（高电平）</span>
+
+<span class="n">p4</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">IN</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">PULL_UP</span><span class="p">)</span> <span class="c1"># 打开内部上拉电阻</span>
+<span class="n">p5</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">OUT</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># 初始化时候设置引脚的值为 1（高电平）</span>
+</pre></div>
+</div>
+<p>可以使用引脚排列如下 (包括首尾): 0-19, 21-23, 25-27, 32-39.分别对应ESP32芯片的实际
+引脚编号。 请注意，用户使用自己其它的开发板有特定的引脚命名方式（例如：DO, D1, …）。
+由于MicroPython致力于支持 不同的开发板和模块，因此我们采用最原始简单具且有共同特征的引
+脚命名方式。如果你使用自己的开发板，请参考其原理图。</p>
+<p>注意:</p>
+<ul class="simple">
+<li><p>引脚1和3分别是串口交互（REPL）的TX和RX。</p></li>
+<li><p>引脚6, 7, 8, 11, 16, 和 17 are 连接到模块的Flash，不建议做其它用途。</p></li>
+<li><p>引脚 34-39 只允许输入, 没有内部上拉电阻。</p></li>
+<li><p>部分引脚的pull值可以设置为 <code class="docutils literal notranslate"><span class="pre">Pin.PULL_HOLD</span></code> 以降低深度睡眠时候的功耗。</p></li>
+</ul>
+</section>
+<section id="uart-serial-bus">
+<h2>UART (serial bus)<a class="headerlink" href="#uart-serial-bus" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="reference internal" href="../library/machine.UART.html#machine-uart"><span class="std std-ref">machine.UART</span></a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">UART</span>
+
+<span class="n">uart1</span> <span class="o">=</span> <span class="n">UART</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">baudrate</span><span class="o">=</span><span class="mi">9600</span><span class="p">,</span> <span class="n">tx</span><span class="o">=</span><span class="mi">33</span><span class="p">,</span> <span class="n">rx</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+<span class="n">uart1</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">)</span>  <span class="c1"># write 5 bytes</span>
+<span class="n">uart1</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>         <span class="c1"># read up to 5 bytes</span>
+</pre></div>
+</div>
+<p>The ESP32 has three hardware UARTs: UART0, UART1 and UART2.
+They each have default GPIO assigned to them, however depending on your
+ESP32 variant and board, these pins may conflict with embedded flash,
+onboard PSRAM or peripherals.</p>
+<p>Any GPIO can be used for hardware UARTs using the GPIO matrix, so to avoid
+conflicts simply provide <code class="docutils literal notranslate"><span class="pre">tx</span></code> and <code class="docutils literal notranslate"><span class="pre">rx</span></code> pins when constructing. The default
+pins listed below.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>UART0</p></th>
+<th class="head"><p>UART1</p></th>
+<th class="head"><p>UART2</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>tx</p></td>
+<td><p>1</p></td>
+<td><p>10</p></td>
+<td><p>17</p></td>
+</tr>
+<tr class="row-odd"><td><p>rx</p></td>
+<td><p>3</p></td>
+<td><p>9</p></td>
+<td><p>16</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="pwm">
+<h2>PWM (脉宽调制)<a class="headerlink" href="#pwm" title="Permalink to this headline">¶</a></h2>
+<p>There’s a higher-level abstraction <a class="reference internal" href="../library/machine.Signal.html#machine-signal"><span class="std std-ref">machine.Signal</span></a>
+which can be used to invert a pin. Useful for illuminating active-low LEDs
+using <code class="docutils literal notranslate"><span class="pre">on()</span></code> or <code class="docutils literal notranslate"><span class="pre">value(1)</span></code>.</p>
+<p>PWM 能在所有可输出引脚上实现。基频的范围可以从 1Hz 到 40MHz 但需要权衡: 随着基频的
+<em>增加</em> 占空分辨率 <em>下降</em>. 详情请参阅：
+<a class="reference external" href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/peripherals/ledc.html">LED Control</a>
+.
+现在占空比范围为 0-1023</p>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">machine.PWM</span></code> class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">Pin</span><span class="p">,</span> <span class="n">PWM</span>
+
+<span class="n">pwm0</span> <span class="o">=</span> <span class="n">PWM</span><span class="p">(</span><span class="n">Pin</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>      <span class="c1"># 从1个引脚中创建PWM对象</span>
+<span class="n">pwm0</span><span class="o">.</span><span class="n">freq</span><span class="p">()</span>             <span class="c1"># 获取当前频率</span>
+<span class="n">pwm0</span><span class="o">.</span><span class="n">freq</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>         <span class="c1"># 设置频率</span>
+<span class="n">pwm0</span><span class="o">.</span><span class="n">duty</span><span class="p">()</span>             <span class="c1"># 获取当前占空比</span>
+<span class="n">pwm0</span><span class="o">.</span><span class="n">duty</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>          <span class="c1"># 设置占空比</span>
+<span class="n">pwm0</span><span class="o">.</span><span class="n">deinit</span><span class="p">()</span>           <span class="c1"># 关闭引脚的 PWM</span>
+
+<span class="n">pwm2</span> <span class="o">=</span> <span class="n">PWM</span><span class="p">(</span><span class="n">Pin</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">freq</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span> <span class="n">duty</span><span class="o">=</span><span class="mi">512</span><span class="p">)</span> <span class="c1"># 在同一语句下创建和配置 PWM</span>
+</pre></div>
+</div>
+</section>
+<section id="adc">
+<h2>ADC (模数转换)<a class="headerlink" href="#adc" title="Permalink to this headline">¶</a></h2>
+<p>ADC功能在ESP32引脚32-39上可用。请注意，使用默认配置时，ADC引脚上的输入电压必须
+介于0.0v和1.0v之间（任何高于1.0v的值都将读为4095）。如果需要增加测量范围，需要配置
+衰减器。</p>
+<p>Use the <a class="reference internal" href="../library/machine.ADC.html#machine-adc"><span class="std std-ref">machine.ADC</span></a> class:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">ADC</span>
+
+<span class="n">adc</span> <span class="o">=</span> <span class="n">ADC</span><span class="p">(</span><span class="n">Pin</span><span class="p">(</span><span class="mi">32</span><span class="p">))</span>          <span class="c1"># 在ADC引脚上创建ADC对象</span>
+<span class="n">adc</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>                  <span class="c1"># 读取测量值, 0-4095 表示电压从 0.0v - 1.0v</span>
+
+<span class="n">adc</span><span class="o">.</span><span class="n">atten</span><span class="p">(</span><span class="n">ADC</span><span class="o">.</span><span class="n">ATTN_11DB</span><span class="p">)</span>    <span class="c1"># 设置 11dB 衰减输入 (测量电压大致从 0.0v - 3.6v)</span>
+<span class="n">adc</span><span class="o">.</span><span class="n">width</span><span class="p">(</span><span class="n">ADC</span><span class="o">.</span><span class="n">WIDTH_9BIT</span><span class="p">)</span>   <span class="c1"># 设置 9位 精度输出 (返回值 0-511)</span>
+<span class="n">adc</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>                  <span class="c1"># 获取重新配置后的测量值</span>
+</pre></div>
+</div>
+<p>ESP32 特定的 ADC 类使用方法说明:</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ADC.atten">
+<span class="sig-prename descclassname"><span class="pre">ADC.</span></span><span class="sig-name descname"><span class="pre">atten</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">attenuation</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ADC.atten" title="Permalink to this definition">¶</a></dt>
+<dd><p>该方法允许设置ADC输入的衰减量，以获取更大的电压测量范围，但是以精度为代价的。
+（配置后相同的位数表示更宽的范围）。衰减选项如下:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ADC.ATTN_0DB</span></code>: 0dB 衰减, 最大输入电压为 1.00v - 这是默认配置</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ADC.ATTN_2_5DB</span></code>: 2.5dB 衰减, 最大输入电压约为 1.34v</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ADC.ATTN_6DB</span></code>: 6dB 衰减, 最大输入电压约为 2.00v</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ADC.ATTN_11DB</span></code>: 11dB 衰减, 最大输入电压约为3v</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>尽管通过配置11dB衰减可以让测量电压到达3.6v,但由于ESP32芯片的最大允许输入电压是3.6V,
+因此输入接近3.6V的电压可能会导致IC烧坏！</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="ADC.width">
+<span class="sig-prename descclassname"><span class="pre">ADC.</span></span><span class="sig-name descname"><span class="pre">width</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">width</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#ADC.width" title="Permalink to this definition">¶</a></dt>
+<dd><p>该方法允许设置ADC输入的位数精度。 选项如下:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ADC.WIDTH_9BIT</span></code>: 9 bit data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ADC.WIDTH_10BIT</span></code>: 10 bit data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ADC.WIDTH_11BIT</span></code>: 11 bit data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ADC.WIDTH_12BIT</span></code>: 12 bit data - 这是默认配置</p></li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+</section>
+<section id="spi">
+<h2>软件SPI总线<a class="headerlink" href="#spi" title="Permalink to this headline">¶</a></h2>
+<p>EPS32内部有两个SPI驱动。其中1个是通过软件实现 (bit-banging)，并允许配置到所有引脚，
+通过 <a class="reference internal" href="../library/machine.SPI.html#machine-softspi"><span class="std std-ref">machine.SoftSPI</span></a> 类模块配置:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">Pin</span><span class="p">,</span> <span class="n">SoftSPI</span>
+
+<span class="c1"># 在给定的引脚上创建SoftSPI总线</span>
+<span class="c1"># （极性）polarity是指 SCK 空闲时候的状态</span>
+<span class="c1"># （相位）phase=0 表示SCK在第1个边沿开始取样，phase=1 表示在第2个边沿开始。</span>
+<span class="n">spi</span> <span class="o">=</span> <span class="n">SoftSPI</span><span class="p">(</span><span class="n">baudrate</span><span class="o">=</span><span class="mi">100000</span><span class="p">,</span> <span class="n">polarity</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sck</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">mosi</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">miso</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+
+
+<span class="n">spi</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">baudrate</span><span class="o">=</span><span class="mi">200000</span><span class="p">)</span> <span class="c1"># 设置频率</span>
+
+<span class="n">spi</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>            <span class="c1"># 在MISO引脚读取10字节数据</span>
+<span class="n">spi</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">)</span>      <span class="c1"># 在MISO引脚读取10字节数据同时在MOSI输出0xff</span>
+
+<span class="n">buf</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>     <span class="c1"># 建立缓冲区</span>
+<span class="n">spi</span><span class="o">.</span><span class="n">readinto</span><span class="p">(</span><span class="n">buf</span><span class="p">)</span>       <span class="c1"># 读取数据并存放在缓冲区 (这里读取50个字节)</span>
+<span class="n">spi</span><span class="o">.</span><span class="n">readinto</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="mh">0xff</span><span class="p">)</span> <span class="c1"># 读取数据并存放在缓冲区，同时在MOSI输出0xff</span>
+
+<span class="n">spi</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;12345&#39;</span><span class="p">)</span>     <span class="c1"># 在MOSI引脚上写5字节数据</span>
+
+<span class="n">buf</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>      <span class="c1"># 建立缓冲区</span>
+<span class="n">spi</span><span class="o">.</span><span class="n">write_readinto</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;1234&#39;</span><span class="p">,</span> <span class="n">buf</span><span class="p">)</span> <span class="c1"># 在MOSI引脚上写数据并将MISO读取数据存放到缓冲区</span>
+<span class="n">spi</span><span class="o">.</span><span class="n">write_readinto</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span> <span class="n">buf</span><span class="p">)</span> <span class="c1"># 在MOSI引脚上写缓冲区的数据并将MISO读取数据存放到缓冲区</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>目前在创建软件SPI对象时，<code class="docutils literal notranslate"><span class="pre">sck</span></code>, <code class="docutils literal notranslate"><span class="pre">mosi</span></code> 和 <code class="docutils literal notranslate"><span class="pre">miso</span></code> <em>所有</em> 的引脚 <em>必须</em> 定义。</p>
+</div>
+</section>
+<section id="id4">
+<h2>硬件SPI总线<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>有两个硬件SPI通道允许更高速率传输（到达80MHz）。 也可以配置成任意引脚，但相关引脚要
+符合输入输出的方向性，这可以参阅(see <a class="reference internal" href="#pins-and-gpio"><span class="std std-ref">引脚和GPIO口</span></a>)内容。通过自定义引脚而非
+默认引脚，会降低传输速度，上限为40MHz。以下是硬件SPI总线默认引脚：</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 39%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>HSPI (id=1)</p></th>
+<th class="head"><p>VSPI (id=2)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>sck</p></td>
+<td><p>14</p></td>
+<td><p>18</p></td>
+</tr>
+<tr class="row-odd"><td><p>mosi</p></td>
+<td><p>13</p></td>
+<td><p>23</p></td>
+</tr>
+<tr class="row-even"><td><p>miso</p></td>
+<td><p>12</p></td>
+<td><p>19</p></td>
+</tr>
+</tbody>
+</table>
+<p>Hardware SPI is accessed via the <a class="reference internal" href="../library/machine.SPI.html#machine-spi"><span class="std std-ref">machine.SPI</span></a> class and
+has the same methods as software SPI above:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">Pin</span><span class="p">,</span> <span class="n">SPI</span>
+
+<span class="n">hspi</span> <span class="o">=</span> <span class="n">SPI</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10000000</span><span class="p">)</span>
+<span class="n">hspi</span> <span class="o">=</span> <span class="n">SPI</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10000000</span><span class="p">,</span> <span class="n">sck</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">14</span><span class="p">),</span> <span class="n">mosi</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">13</span><span class="p">),</span> <span class="n">miso</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">12</span><span class="p">))</span>
+<span class="n">vspi</span> <span class="o">=</span> <span class="n">SPI</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">baudrate</span><span class="o">=</span><span class="mi">80000000</span><span class="p">,</span> <span class="n">polarity</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">phase</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bits</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">firstbit</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sck</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">18</span><span class="p">),</span> <span class="n">mosi</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">23</span><span class="p">),</span> <span class="n">miso</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">19</span><span class="p">))</span>
+</pre></div>
+</div>
+</section>
+<section id="softi2c">
+<h2>SoftI2C总线<a class="headerlink" href="#softi2c" title="Permalink to this headline">¶</a></h2>
+<p>I2C总线分软件和硬件对象，硬件可以定义0和1，通过配置可以在任意引脚上实现改功能，
+详情请看 <a class="reference internal" href="../library/machine.I2C.html#machine-softi2c"><span class="std std-ref">machine.SoftI2C</span></a> 类模块:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">Pin</span><span class="p">,</span> <span class="n">SoftI2C</span>
+
+<span class="c1"># 构建1个I2C对象</span>
+<span class="n">i2c</span> <span class="o">=</span> <span class="n">SoftI2C</span><span class="p">(</span><span class="n">scl</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">sda</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">freq</span><span class="o">=</span><span class="mi">100000</span><span class="p">)</span>
+
+<span class="c1"># 构建一个硬件 I2C 总线</span>
+<span class="n">i2c</span> <span class="o">=</span> <span class="n">I2C</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">i2c</span> <span class="o">=</span> <span class="n">I2C</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">scl</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">sda</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">freq</span><span class="o">=</span><span class="mi">400000</span><span class="p">)</span>
+
+<span class="n">i2c</span><span class="o">.</span><span class="n">scan</span><span class="p">()</span>              <span class="c1"># 扫描从设备</span>
+
+<span class="n">i2c</span><span class="o">.</span><span class="n">readfrom</span><span class="p">(</span><span class="mh">0x3a</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>   <span class="c1"># 从地址为0x3a的从机设备读取4字节数据</span>
+<span class="n">i2c</span><span class="o">.</span><span class="n">writeto</span><span class="p">(</span><span class="mh">0x3a</span><span class="p">,</span> <span class="s1">&#39;12&#39;</span><span class="p">)</span> <span class="c1"># 向地址为0x3a的从机设备写入数据&quot;12&quot;</span>
+
+<span class="n">buf</span> <span class="o">=</span> <span class="nb">bytearray</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>     <span class="c1"># 创建1个10字节缓冲区</span>
+<span class="n">i2c</span><span class="o">.</span><span class="n">writeto</span><span class="p">(</span><span class="mh">0x3a</span><span class="p">,</span> <span class="n">buf</span><span class="p">)</span>  <span class="c1"># 写入缓冲区数据到从机</span>
+</pre></div>
+</div>
+</section>
+<section id="hardware-i2c-bus">
+<h2>Hardware I2C bus<a class="headerlink" href="#hardware-i2c-bus" title="Permalink to this headline">¶</a></h2>
+<p>There are two hardware I2C peripherals with identifiers 0 and 1.  Any available
+output-capable pins can be used for SCL and SDA but the defaults are given
+below.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 39%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p></p></th>
+<th class="head"><p>I2C(0)</p></th>
+<th class="head"><p>I2C(1)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>scl</p></td>
+<td><p>18</p></td>
+<td><p>25</p></td>
+</tr>
+<tr class="row-odd"><td><p>sda</p></td>
+<td><p>19</p></td>
+<td><p>26</p></td>
+</tr>
+</tbody>
+</table>
+<p>The driver is accessed via the <a class="reference internal" href="../library/machine.I2C.html#machine-i2c"><span class="std std-ref">machine.I2C</span></a> class and
+has the same methods as software I2C above:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">Pin</span><span class="p">,</span> <span class="n">I2C</span>
+
+<span class="n">i2c</span> <span class="o">=</span> <span class="n">I2C</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">i2c</span> <span class="o">=</span> <span class="n">I2C</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">scl</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span> <span class="n">sda</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">freq</span><span class="o">=</span><span class="mi">400000</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="rtc">
+<h2>实时时钟(RTC)<a class="headerlink" href="#rtc" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="reference internal" href="../library/machine.RTC.html#machine-rtc"><span class="std std-ref">machine.RTC</span></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">RTC</span>
+
+<span class="n">rtc</span> <span class="o">=</span> <span class="n">RTC</span><span class="p">()</span>
+<span class="n">rtc</span><span class="o">.</span><span class="n">datetime</span><span class="p">((</span><span class="mi">2017</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="c1"># 设置时间（年，月，日，星期，时，分，秒，微秒）</span>
+                                             <span class="c1"># 其中星期使用0-6表示星期一至星期日。</span>
+<span class="n">rtc</span><span class="o">.</span><span class="n">datetime</span><span class="p">()</span> <span class="c1"># 获取当前日期和时间</span>
+</pre></div>
+</div>
+</section>
+<section id="wdt-watchdog-timer">
+<h2>WDT (Watchdog timer)<a class="headerlink" href="#wdt-watchdog-timer" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="reference internal" href="../library/machine.WDT.html#machine-wdt"><span class="std std-ref">machine.WDT</span></a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">WDT</span>
+
+<span class="c1"># enable the WDT with a timeout of 5s (1s is the minimum)</span>
+<span class="n">wdt</span> <span class="o">=</span> <span class="n">WDT</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+<span class="n">wdt</span><span class="o">.</span><span class="n">feed</span><span class="p">()</span>
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h2>深度睡眠模式<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>下面代码可以用来睡眠、唤醒和检测复位唤醒:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">machine</span>
+
+<span class="c1"># 检测设备是否从深度睡眠中唤醒</span>
+<span class="k">if</span> <span class="n">machine</span><span class="o">.</span><span class="n">reset_cause</span><span class="p">()</span> <span class="o">==</span> <span class="n">machine</span><span class="o">.</span><span class="n">DEEPSLEEP_RESET</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;woke from a deep sleep&#39;</span><span class="p">)</span>
+
+<span class="c1"># 使设备进入深度睡眠，时间10秒。</span>
+<span class="n">machine</span><span class="o">.</span><span class="n">deepsleep</span><span class="p">(</span><span class="mi">10000</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>注意事项:</p>
+<ul>
+<li><p>调用深度睡眠函数 <code class="docutils literal notranslate"><span class="pre">deepsleep()</span></code> 如果不提供参数（时间）的话可能会让设备无限期休眠。</p></li>
+<li><p>软件复位不能触发复位事件（reset cause）。</p></li>
+<li><p>可能会出现一些泄漏电流流经内部上下拉电阻，为了进一步降低功耗，可以关闭GPIO的上下拉电阻:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p1</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">IN</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">PULL_HOLD</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>退出深度睡眠后，有必要恢复GPIO原来的状态 (例如：原来是输出引脚)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">p1</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">OUT</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="sd-card">
+<h2>SD card<a class="headerlink" href="#sd-card" title="Permalink to this headline">¶</a></h2>
+<p>See <a class="reference internal" href="../library/machine.SDCard.html#machine-sdcard"><span class="std std-ref">machine.SDCard</span></a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">machine</span><span class="o">,</span> <span class="nn">uos</span>
+
+<span class="c1"># Slot 2 uses pins sck=18, cs=5, miso=19, mosi=23</span>
+<span class="n">sd</span> <span class="o">=</span> <span class="n">machine</span><span class="o">.</span><span class="n">SDCard</span><span class="p">(</span><span class="n">slot</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">uos</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="n">sd</span><span class="p">,</span> <span class="s2">&quot;/sd&quot;</span><span class="p">)</span>  <span class="c1"># mount</span>
+
+<span class="n">uos</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s1">&#39;/sd&#39;</span><span class="p">)</span>    <span class="c1"># list directory contents</span>
+
+<span class="n">uos</span><span class="o">.</span><span class="n">umount</span><span class="p">(</span><span class="s1">&#39;/sd&#39;</span><span class="p">)</span>     <span class="c1"># eject</span>
+</pre></div>
+</div>
+</section>
+<section id="rmt">
+<h2>RMT<a class="headerlink" href="#rmt" title="Permalink to this headline">¶</a></h2>
+<p>The RMT is ESP32-specific and allows generation of accurate digital pulses with
+12.5ns resolution.  See <a class="reference internal" href="../library/esp32.html#esp32-rmt"><span class="std std-ref">esp32.RMT</span></a> for details.  Usage is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">esp32</span>
+<span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">Pin</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">esp32</span><span class="o">.</span><span class="n">RMT</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">pin</span><span class="o">=</span><span class="n">Pin</span><span class="p">(</span><span class="mi">18</span><span class="p">),</span> <span class="n">clock_div</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">r</span>   <span class="c1"># RMT(channel=0, pin=18, source_freq=80000000, clock_div=8)</span>
+<span class="c1"># The channel resolution is 100ns (1/(source_freq/clock_div)).</span>
+<span class="n">r</span><span class="o">.</span><span class="n">write_pulses</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">40</span><span class="p">),</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># Send 0 for 100ns, 1 for 2000ns, 0 for 200ns, 1 for 4000ns</span>
+</pre></div>
+</div>
+</section>
+<section id="onewire">
+<h2>单总线驱动（Onewire）<a class="headerlink" href="#onewire" title="Permalink to this headline">¶</a></h2>
+<p>单总线驱动允许通过软件在各个引脚上实现:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">Pin</span>
+<span class="kn">import</span> <span class="nn">onewire</span>
+
+<span class="n">ow</span> <span class="o">=</span> <span class="n">onewire</span><span class="o">.</span><span class="n">OneWire</span><span class="p">(</span><span class="n">Pin</span><span class="p">(</span><span class="mi">12</span><span class="p">))</span> <span class="c1"># 在引脚 GPIO12 创建单总线对象ow</span>
+<span class="n">ow</span><span class="o">.</span><span class="n">scan</span><span class="p">()</span>               <span class="c1"># 扫描设备,返回设备编号列表</span>
+<span class="n">ow</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>              <span class="c1"># 复位总线</span>
+<span class="n">ow</span><span class="o">.</span><span class="n">readbyte</span><span class="p">()</span>           <span class="c1"># 读取1字节</span>
+<span class="n">ow</span><span class="o">.</span><span class="n">writebyte</span><span class="p">(</span><span class="mh">0x12</span><span class="p">)</span>      <span class="c1"># 写入1个字节（0x12）</span>
+<span class="n">ow</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;123&#39;</span><span class="p">)</span>         <span class="c1"># 写入多个字节(&#39;123&#39;)</span>
+<span class="n">ow</span><span class="o">.</span><span class="n">select_rom</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;12345678&#39;</span><span class="p">)</span> <span class="c1"># 根据ROM编号选择总线上的指定设备</span>
+</pre></div>
+</div>
+<p>下面是一个DS18B20设备的驱动函数:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span><span class="o">,</span> <span class="nn">ds18x20</span>
+<span class="n">ds</span> <span class="o">=</span> <span class="n">ds18x20</span><span class="o">.</span><span class="n">DS18X20</span><span class="p">(</span><span class="n">ow</span><span class="p">)</span>
+<span class="n">roms</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">scan</span><span class="p">()</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">convert_temp</span><span class="p">()</span>
+<span class="n">time</span><span class="o">.</span><span class="n">sleep_ms</span><span class="p">(</span><span class="mi">750</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">rom</span> <span class="ow">in</span> <span class="n">roms</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">read_temp</span><span class="p">(</span><span class="n">rom</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>确保数据引脚连接了 4.7k 的上拉电阻。另外请注意每次采集温度都需要用到 <code class="docutils literal notranslate"><span class="pre">convert_temp()</span></code> 模块。</p>
+</section>
+<section id="neopixel-and-apa106-driver">
+<h2>NeoPixel and APA106 driver<a class="headerlink" href="#neopixel-and-apa106-driver" title="Permalink to this headline">¶</a></h2>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">neopixel</span></code> and <code class="docutils literal notranslate"><span class="pre">apa106</span></code> modules:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">Pin</span>
+<span class="kn">from</span> <span class="nn">neopixel</span> <span class="kn">import</span> <span class="n">NeoPixel</span>
+
+<span class="n">pin</span> <span class="o">=</span> <span class="n">Pin</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">Pin</span><span class="o">.</span><span class="n">OUT</span><span class="p">)</span>   <span class="c1"># 设置引脚GPIO0来驱动 NeoPixels</span>
+<span class="n">np</span> <span class="o">=</span> <span class="n">NeoPixel</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>   <span class="c1"># 在GPIO0上创建一个 NeoPixel对象，包含8个灯珠</span>
+<span class="n">np</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">,</span> <span class="mi">255</span><span class="p">)</span> <span class="c1"># 设置第一个灯珠显示数据为白色</span>
+<span class="n">np</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>              <span class="c1"># 写入数据</span>
+<span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>         <span class="c1"># 获取第一个灯珠的颜色</span>
+</pre></div>
+</div>
+<p>The APA106 driver extends NeoPixel, but internally uses a different colour order:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">apa106</span> <span class="kn">import</span> <span class="n">APA106</span>
+<span class="n">ap</span> <span class="o">=</span> <span class="n">APA106</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">ap</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>APA102 (DotStar) uses a different driver as it has an additional clock pin.</p>
+<p>低级别的 NeoPixel 驱动:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">esp</span>
+<span class="n">esp</span><span class="o">.</span><span class="n">neopixel_write</span><span class="p">(</span><span class="n">pin</span><span class="p">,</span> <span class="n">grb_buf</span><span class="p">,</span> <span class="n">is800khz</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>默认情况下 <code class="docutils literal notranslate"><span class="pre">NeoPixel</span></code> 被配置成控制更常用的 <em>800kHz</em> 单元设备。用户可以通过使用替代的定时器
+来说控制其他频率的设备 (通常是 400kHz)。 可以通过使用定时器 <code class="docutils literal notranslate"><span class="pre">timing=0</span></code> 当构建 <code class="docutils literal notranslate"><span class="pre">NeoPixel</span></code> 对象的时候。</p>
+</div>
+</section>
+<section id="id6">
+<h2>电容触摸<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">TouchPad</span></code> class in the <code class="docutils literal notranslate"><span class="pre">machine</span></code> module:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">TouchPad</span><span class="p">,</span> <span class="n">Pin</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">TouchPad</span><span class="p">(</span><span class="n">Pin</span><span class="p">(</span><span class="mi">14</span><span class="p">))</span>
+<span class="n">t</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>              <span class="c1"># 当触摸的时候返回一个很小的数字。</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">TouchPad.read</span></code> 返回一个跟电容相关的变量数值。 当被触摸时候，这个数值很小 (通常是 <em>十位</em>)，
+而当电容按键没有被触摸时候，返回一个很大的数字 (大于*1000*)。 然而，这些值是 <em>相对的</em>，它可能会
+随外部环境变化，因此你可能需要做一些校准。</p>
+<p>ESP32有10个电容触摸输入IO口: 0, 2, 4, 12, 13,14, 15, 27, 32, 33。尝试其它GPIO会返回``ValueError``。</p>
+<p>TouchPads可以唤醒睡眠中的ESP32:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">machine</span>
+<span class="kn">from</span> <span class="nn">machine</span> <span class="kn">import</span> <span class="n">TouchPad</span><span class="p">,</span> <span class="n">Pin</span>
+<span class="kn">import</span> <span class="nn">esp32</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">TouchPad</span><span class="p">(</span><span class="n">Pin</span><span class="p">(</span><span class="mi">14</span><span class="p">))</span>
+<span class="n">t</span><span class="o">.</span><span class="n">config</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>               <span class="c1"># 配置触摸引脚的阈值</span>
+<span class="n">esp32</span><span class="o">.</span><span class="n">wake_on_touch</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">machine</span><span class="o">.</span><span class="n">lightsleep</span><span class="p">()</span>        <span class="c1"># MCU进入睡眠状态，直到touchpad被触摸</span>
+</pre></div>
+</div>
+<p>有关 touchpads 更多资料请参考以下链接： <a class="reference external" href="https://docs.espressif.com/projects/esp-idf/en/latest/api-reference/peripherals/touch_pad.html">Espressif Touch Sensor</a>.</p>
+</section>
+<section id="dht">
+<h2>DHT 驱动<a class="headerlink" href="#dht" title="Permalink to this headline">¶</a></h2>
+<p>DHT 温湿度驱动允许通过软件在各个引脚上实现:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">dht</span>
+<span class="kn">import</span> <span class="nn">machine</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">dht</span><span class="o">.</span><span class="n">DHT11</span><span class="p">(</span><span class="n">machine</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">d</span><span class="o">.</span><span class="n">measure</span><span class="p">()</span>
+<span class="n">d</span><span class="o">.</span><span class="n">temperature</span><span class="p">()</span> <span class="c1"># eg. 23 (°C)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">humidity</span><span class="p">()</span>    <span class="c1"># eg. 41 (% RH)</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">dht</span><span class="o">.</span><span class="n">DHT22</span><span class="p">(</span><span class="n">machine</span><span class="o">.</span><span class="n">Pin</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="n">d</span><span class="o">.</span><span class="n">measure</span><span class="p">()</span>
+<span class="n">d</span><span class="o">.</span><span class="n">temperature</span><span class="p">()</span> <span class="c1"># eg. 23.6 (°C)</span>
+<span class="n">d</span><span class="o">.</span><span class="n">humidity</span><span class="p">()</span>    <span class="c1"># eg. 41.3 (% RH)</span>
+</pre></div>
+</div>
+</section>
+<section id="webrepl-web">
+<h2>WebREPL (Web浏览器交互提示)<a class="headerlink" href="#webrepl-web" title="Permalink to this headline">¶</a></h2>
+<p>WebREPL (通过WebSockets的REPL, 可以通过浏览器使用) 是ESP8266端口实验的功能。
+可以从 <a class="reference external" href="https://github.com/micropython/webrepl">https://github.com/micropython/webrepl</a> 下载并打开html文件运行。
+(在线托管版可以通过访问 <a class="reference external" href="http://micropython.org/webrepl">http://micropython.org/webrepl</a>)直接使用,  通过执行
+以下命令进行配置:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">webrepl_setup</span>
+</pre></div>
+</div>
+<p>按照屏幕的提示操作。重启后，允许使用WebREPL。如果你禁用了开机自动启动WebREPL,
+可以通过以下命令使用:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">webrepl</span>
+<span class="n">webrepl</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="c1"># 也可在在开始时候设置一个密码</span>
+<span class="n">webrepl</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">password</span><span class="o">=</span><span class="s1">&#39;mypass&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>这个 WebREPL 通过连接到ESP32的AP使用,如果你的路由器配网络配置正确，这个功能
+也可以通过STA方式使用，那意味着你可以同时上网和调试ESP32。(如果遇到不可行的
+特殊情况， 请先使用ESP32 AP方式)。</p>
+<p>除了终端/命令符的访问方式, WebREPL同时允许传输文件 (包含上传和下载)。Web客户端有相应的
+功能按钮，也可以通过 <code class="docutils literal notranslate"><span class="pre">webrepl_cli.py</span></code> 模块上存储的命令行进行操作。</p>
+<p>有关将文件传输到ESP32其他支持的替代方法，请参阅MicroPython论坛。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../library/esp32.html" class="btn btn-neutral float-left" title="esp32 — functionality specific to the ESP32" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="general.html" class="btn btn-neutral float-right" title="ESP32基本信息" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2014-2021, Damien P. George, Paul Sokolovsky, and contributors.
+      <span class="lastupdated">Last updated on 10 Nov 2021.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions and Downloads</span>
+    latest
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Versions</dt>
+      
+        <dd><a href="//en/latest">latest</a></dd>
+      
+    </dl>
+    <dl>
+      <dt>Downloads</dt>
+      
+        <dd><a href="//en/latest/micropython-docs.pdf">PDF</a></dd>
+      
+    </dl>
+    <hr/>
+    <dl>
+      <dt>External links</dt>
+        <dd>
+          <a href="https://www.micropython.org">micropython.org</a>
+        </dd>
+        <dd>
+          <a href="https://github.com/micropython/micropython">GitHub</a>
+        </dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

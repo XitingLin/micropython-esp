@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ESP32基本信息 &mdash; MicroPython 1.15 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/customstyle.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ESP32 MicroPython上手指南" href="tutorial/intro.html" />
+    <link rel="prev" title="ESP32 快速参考手册" href="quickref.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> MicroPython
+            <img src="../_static/01studio-white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.15
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../library/index.html">MicroPython 相关库</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="quickref.html">ESP32 快速参考手册</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ESP32基本信息</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">多样的开发板</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#soc">技术参数和SoC数据表</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial/intro.html">ESP32 MicroPython上手指南</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#micropython">安装MicroPython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#id1">通用控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#networking">Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#id2">延时和时间</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#id3">定时器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#gpio">引脚和GPIO口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#uart-serial-bus">UART (serial bus)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#pwm">PWM (脉宽调制)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#adc">ADC (模数转换)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#spi">软件SPI总线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#id4">硬件SPI总线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#softi2c">SoftI2C总线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#hardware-i2c-bus">Hardware I2C bus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#rtc">实时时钟(RTC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#wdt-watchdog-timer">WDT (Watchdog timer)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#id5">深度睡眠模式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#sd-card">SD card</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#rmt">RMT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#onewire">单总线驱动（Onewire）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#neopixel-and-apa106-driver">NeoPixel and APA106 driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#id6">电容触摸</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#dht">DHT 驱动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickref.html#webrepl-web">WebREPL (Web浏览器交互提示)</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MicroPython</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="quickref.html">ESP32 快速参考手册</a> &raquo;</li>
+      <li>ESP32基本信息</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/esp32/general.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="esp32">
+<span id="esp32-general"></span><h1>ESP32基本信息<a class="headerlink" href="#esp32" title="Permalink to this headline">¶</a></h1>
+<p>ESP32是有乐鑫科技开发的主流的嵌入式WiFi蓝牙SoC（System-on-Chip）。</p>
+<section id="id1">
+<h2>多样的开发板<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>现在许多来自不同生产厂商（包括乐鑫）的开发板搭载ESP32芯片。MicroPython试图提供一个通用端口，
+该端口可以在尽可能多的开发板或模块上运行，但可能存在一些限制。乐鑫开发板作为端口的参考
+（例如，对它们进行测试）。对于您正在使用的任何电路板，请确保您有数据表、示意图和其他参考
+资料，以便您可以查找任何电路板的特定功能。</p>
+<p>为了制作一个通用的ESP32端口并支持尽可能多的板，做出了以下设计和实施决定：</p>
+<ul class="simple">
+<li><p>GPIO管脚编号基于ESP32芯片编号。请将您的电路板的手册或管脚图放在手边，以便找到您的电路板管脚
+和实际的ESP32管脚之间的对应关系。</p></li>
+<li><p>MicroPython支持所有管脚，但并非所有管脚都可以在任何板上使用。
+例如，不应使用连接到外部SPI闪存的管脚，并且电路板可能只公开某些管脚选择。</p></li>
+</ul>
+</section>
+<section id="soc">
+<h2>技术参数和SoC数据表<a class="headerlink" href="#soc" title="Permalink to this headline">¶</a></h2>
+<p>ESP32芯片的数据表和其他参考资料可从供应商网站获得：
+<a class="reference external" href="https://www.espressif.com/en/support/download/documents?keys=esp32">https://www.espressif.com/en/support/download/documents?keys=esp32</a>
+这里有芯片技术规格、性能、工作模式、内部功能等的主要参考。</p>
+<p>为了方便你了解ESP32，我们给你提供了部分参数：</p>
+<ul class="simple">
+<li><p>架构: Xtensa Dual-Core 32-bit LX6</p></li>
+<li><p>CPU频率: up to 240MHz</p></li>
+<li><p>RAM可用空间: 528KB (保留一部分给系统)</p></li>
+<li><p>BootROM: 448KB</p></li>
+<li><p>内部FlashROM: none</p></li>
+<li><p>外部FlashROM: code and data, via SPI Flash; usual size 4MB</p></li>
+<li><p>GPIO: 34 (gpio与其他功能多路复用，包括外部FlashROM、UART等。)</p></li>
+<li><p>UART: 3个RX/TX UART (无硬件握手), 一个TX-only UART</p></li>
+<li><p>SPI: 4 SPI interfaces (one used for FlashROM)</p></li>
+<li><p>I2C: 2 I2C (任何管脚上都有bitbang实现)</p></li>
+<li><p>I2S: 2</p></li>
+<li><p>ADC: 12位 SAR ADC 最高18频道</p></li>
+<li><p>DAC: 2个8位 DACs</p></li>
+<li><p>RMT: 8通道允许精确的脉冲发射/接收</p></li>
+<li><p>编程方式: 从UART使用BootROM bootloader-由于外部FlashROM和始终可用的BootROM bootloader，ESP32是不可分块的</p></li>
+</ul>
+<p>获取更多有关ESP32的信息？请访问：<a class="reference external" href="https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf">https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf</a></p>
+<p>MicroPython是在ESP-IDF（乐鑫科技的ESP32开发框架）之上实现的。这是一个基于FreeRTOS的系统。
+想要深入了解ESP-IDF？请移步至：
+<a class="reference external" href="https://docs.espressif.com/projects/esp-idf/en/latest/index.html">ESP-IDF编程指南</a></p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="quickref.html" class="btn btn-neutral float-left" title="ESP32 快速参考手册" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tutorial/intro.html" class="btn btn-neutral float-right" title="ESP32 MicroPython上手指南" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2014-2021, Damien P. George, Paul Sokolovsky, and contributors.
+      <span class="lastupdated">Last updated on 10 Nov 2021.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions and Downloads</span>
+    latest
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Versions</dt>
+      
+        <dd><a href="//en/latest">latest</a></dd>
+      
+    </dl>
+    <dl>
+      <dt>Downloads</dt>
+      
+        <dd><a href="//en/latest/micropython-docs.pdf">PDF</a></dd>
+      
+    </dl>
+    <hr/>
+    <dl>
+      <dt>External links</dt>
+        <dd>
+          <a href="https://www.micropython.org">micropython.org</a>
+        </dd>
+        <dd>
+          <a href="https://github.com/micropython/micropython">GitHub</a>
+        </dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

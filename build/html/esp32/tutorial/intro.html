@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ESP32 MicroPython上手指南 &mdash; MicroPython 1.15 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/customstyle.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="ESP32基本信息" href="../general.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> MicroPython
+            <img src="../../_static/01studio-white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.15
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../library/index.html">MicroPython 相关库</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../quickref.html">ESP32 快速参考手册</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../general.html">ESP32基本信息</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ESP32 MicroPython上手指南</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">准备工作</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">给开发板供电</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">获取固件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id4">刷入固件</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">串行命令符</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id6">编译时出了问题怎么办？</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#micropython">安装MicroPython</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#id1">通用控制</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#networking">Networking</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#id2">延时和时间</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#id3">定时器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#gpio">引脚和GPIO口</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#uart-serial-bus">UART (serial bus)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#pwm">PWM (脉宽调制)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#adc">ADC (模数转换)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#spi">软件SPI总线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#id4">硬件SPI总线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#softi2c">SoftI2C总线</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#hardware-i2c-bus">Hardware I2C bus</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#rtc">实时时钟(RTC)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#wdt-watchdog-timer">WDT (Watchdog timer)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#id5">深度睡眠模式</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#sd-card">SD card</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#rmt">RMT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#onewire">单总线驱动（Onewire）</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#neopixel-and-apa106-driver">NeoPixel and APA106 driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#id6">电容触摸</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#dht">DHT 驱动</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickref.html#webrepl-web">WebREPL (Web浏览器交互提示)</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MicroPython</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../quickref.html">ESP32 快速参考手册</a> &raquo;</li>
+      <li>ESP32 MicroPython上手指南</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/esp32/tutorial/intro.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="esp32-micropython">
+<span id="esp32-intro"></span><h1>ESP32 MicroPython上手指南<a class="headerlink" href="#esp32-micropython" title="Permalink to this headline">¶</a></h1>
+<p>使用MicroPython是一种充分使用ESP32开发板最好的方式。并且ESP32芯片是使用MicroPython
+最好的平台。该教程将指导你如何使用ESP32上的MicroPython，从输出提示，使用WebREPL，
+连接网络并与网络通信，使用硬件外设，以及控制扩展组件。</p>
+<p>让我们开始吧！</p>
+<section id="id1">
+<h2>准备工作<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>你需要一块ESP32开发板。MicroPython支持ESP32芯片本身，从而可运行于任何一块搭载ESP32
+芯片的开发板上。改板子的主要特征在于GPIO针脚是连接外界的，并且它包含了一个内置的
+USB串口转换器，该转换器可以使你的电脑通过UART（Universal Asynchronous Receiver/
+Transmitter，通用异步收发传输器)来连接你的开发板。</p>
+<p>为方便你找到开发板上对应的针脚，本教程将使用芯片上的针脚名(例如GPIO2)。</p>
+</section>
+<section id="id2">
+<h2>给开发板供电<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>通常大部分开发板都可以使用电脑给。否则你需要直接给开发板供电（为防止因电流或者电压
+过大导致开发板损坏）。
+请参考开发版所对应的文档以获取更多信息。</p>
+</section>
+<section id="id3">
+<h2>获取固件<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>你要做的的一件事就是下载适用于ESP32的MicroPython的固件（.bin）。
+你可以从官网（传送门：<a class="reference external" href="https://micropython.org/download#esp32">https://micropython.org/download#esp32</a>）获取固件。
+你有三种选择：</p>
+<ul class="simple">
+<li><p>稳定版固件</p></li>
+<li><p>每日更新版固件</p></li>
+<li><p>支持SPIRAM的每日更新版固件</p></li>
+</ul>
+<p>如果你刚开始使用MicroPython，为了保险起见，我们建议你使用稳定版固件。
+如果你是ESP32老用户或者专家，想要跟随着开发进度的步伐，那么你可以使用每日构建版
+固件。
+如果你的开发板有SPIRAM，你可以选择标准固件或者支持SPIRAM的固件，可以为Python获得
+更多的内存容量。</p>
+</section>
+<section id="id4">
+<h2>刷入固件<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>当你准备好固件以后，你就可以将固件刷入你的ESP32开发板，当然如果要将固件刷入ESP32，
+你还有两步路要走：
+第一步——将你的开发板调整到bootloader模式，第二步就是将固件拷入。
+这些步骤的具体步骤取决于你的的开发板，您需要参考其文档以获取更多信息。</p>
+<p>辛运的是，大部分的板子都有USB连接器,一个USB-串口转换器,以及DTR
+和RTS针脚以特殊的方式连接，从而可以轻松成刷入固件。
+具有此类功能的电路板包括Adafruit Feather HUZZAH32，M5Stack，Wemos LOLIN32，TinyPICO
+开发板,以及乐鑫的DevKitC, PICO-KIT, WROVER-KIT开发套件s.</p>
+<p>为获得最好的效果，建议在刷入MicroPython固件之前先进行擦除操作。</p>
+<dl>
+<dt>目前我们只支持通过esptool.py刷入固件。你可以从乐鑫官方Github上获取该工具。</dt><dd><p>（传送门：<a class="reference external" href="https://github.com/espressif/esptool/">https://github.com/espressif/esptool/</a>），或者通过pip安装:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">esptool</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>从1.3版本开始支持Python 2.7和Python 3.4（及以上）版本。
+更早的版本(至少需要1.2.1版本)也能刷固件，但是需要Python 2.7版本。</p>
+<p>请注意：自2020年1月1日起，Python官方不再支持Python 2。届时，Python
+核心开发人员将不再提供错误修复版或安全更新等内容。建议使用支持Python
+3的esptool版本（1.3版本及以上）。</p>
+<p>你可以输入以下命令以进行擦除工作:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esptool</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">port</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">ttyUSB0</span> <span class="n">erase_flash</span>
+</pre></div>
+</div>
+<p>输入以下命令来刷入固件:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">esptool</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">chip</span> <span class="n">esp32</span> <span class="o">--</span><span class="n">port</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">ttyUSB0</span> <span class="n">write_flash</span> <span class="o">-</span><span class="n">z</span> <span class="mh">0x1000</span> <span class="n">esp32</span><span class="o">-</span><span class="mi">20180511</span><span class="o">-</span><span class="n">v1</span><span class="mf">.9.4</span><span class="o">.</span><span class="n">bin</span>
+</pre></div>
+</div>
+<p>提示:</p>
+<ul class="simple">
+<li><p>您可能需要将“端口”设置更改为与你的PC相关的其他设置。</p></li>
+<li><p>如果你在刷固件的过程中出现问题，你需要调低波特率。
+(例：往你的命令里添加 <code class="docutils literal notranslate"><span class="pre">--baud</span> <span class="pre">115200</span></code> 以将频段降低至115200)</p></li>
+<li><p>对于某些具有特定Flash ROM配置的板，您可能需要更改flash模式。
+(例：将 <code class="docutils literal notranslate"><span class="pre">-fm</span> <span class="pre">dio</span></code> 添加到你的命令里)</p></li>
+<li><p>固件的文件名应该与你准备的文件匹配。</p></li>
+</ul>
+<p>如果没有任何报错信息，那么恭喜你，你成功地将MicroPython刷入ESP32</p>
+</section>
+<section id="id5">
+<h2>串行命令符<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>一旦你的设备上有固件，就可以使用USB-串口转换器的UART0(GPIO1=TX, GPIO3=RX)
+访问REPL (Python命令符)，这取决于你的开发板。频段为115200。</p>
+<p>你可以更随着ESP8266教程，因为这两块乐鑫芯片，当你用MicroPython的时候非常相似。
+ESP8266教程传送门：<span class="xref std std-ref">esp8266_tutorial</span> (跳过介绍部分)</p>
+</section>
+<section id="id6">
+<h2>编译时出了问题怎么办？<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>如果在闪存或立即运行固件时遇到问题，你可以参考下面的故障排除建议：</p>
+<ul class="simple">
+<li><p>注意并尝试排除硬件问题。常见的问题有2个：电源质量差，FlashROM磨损/损坏。
+说到电源，电流是非常重要的。当然，低纹波噪声或者EMI也很重要。
+最可靠、最方便的电源是USB接口。</p></li>
+<li><p>上面的闪烁指令使用460800波特的闪烁速度，这是速度和稳定性之间的良好折衷。
+但是，取决于您的模块或者开发板、USB-UART转换器、电缆、主机操作系统等，
+上述波特率可能过高并导致错误。在这种情况下，请尝试更常见的115200波特率。</p></li>
+<li><p>为捕捉不正确的flash内容(例：芯片上有缺陷的扇区),
+请往你的命令里添加 <code class="docutils literal notranslate"><span class="pre">--verify</span></code> 。</p></li>
+<li><p>如果依旧有问题，请参考乐鑫提供的官方文档以及专门报告问题的BUG跟踪器。
+传送门：<a class="reference external" href="https://github.com/espressif/esptool">https://github.com/espressif/esptool</a></p></li>
+<li><p>如果你能刷固件但加上 <code class="docutils literal notranslate"><span class="pre">--verify</span></code> 后并多次重试后依旧报错，那么有可能是
+你的Flash ROM出了问题，建议联系开发板供应商寻求帮助。</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../general.html" class="btn btn-neutral float-left" title="ESP32基本信息" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2014-2021, Damien P. George, Paul Sokolovsky, and contributors.
+      <span class="lastupdated">Last updated on 10 Nov 2021.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions and Downloads</span>
+    latest
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Versions</dt>
+      
+        <dd><a href="//en/latest">latest</a></dd>
+      
+    </dl>
+    <dl>
+      <dt>Downloads</dt>
+      
+        <dd><a href="//en/latest/micropython-docs.pdf">PDF</a></dd>
+      
+    </dl>
+    <hr/>
+    <dl>
+      <dt>External links</dt>
+        <dd>
+          <a href="https://www.micropython.org">micropython.org</a>
+        </dd>
+        <dd>
+          <a href="https://github.com/micropython/micropython">GitHub</a>
+        </dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

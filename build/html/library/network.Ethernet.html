@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>class Ethernet – 哥伦布STM32开发板内部以太网控制 &mdash; MicroPython 1.15 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/customstyle.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ubluetooth — low-level Bluetooth" href="ubluetooth.html" />
+    <link rel="prev" title="class WIZNET5K – control WIZnet5x00 Ethernet modules" href="network.WIZNET5K.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> MicroPython
+            <img src="../_static/01studio-white.png" class="logo" alt="Logo"/>
+          </a>
+              <div class="version">
+                1.15
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">MicroPython 相关库</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="index.html#python-standard-libraries-and-micro-libraries">Python standard libraries and micro-libraries</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#micropython-specific-libraries">MicroPython-specific libraries</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="btree.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">btree</span></code> – simple BTree database</a></li>
+<li class="toctree-l3"><a class="reference internal" href="framebuf.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">framebuf</span></code> — frame buffer manipulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="machine.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">machine</span></code> — functions related to the hardware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="micropython.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">micropython</span></code> – access and control MicroPython internals</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="network.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">network</span></code> — network configuration</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="network.html#common-network-adapter-interface">Common network adapter interface</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="network.html#specific-network-class-implementations">Specific network class implementations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="network.html#network-functions">Network functions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="ubluetooth.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ubluetooth</span></code> — low-level Bluetooth</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ucryptolib.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">ucryptolib</span></code> – cryptographic ciphers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="uctypes.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">uctypes</span></code> – access binary data in a structured way</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#port-specific-libraries">Port-specific libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="index.html#esp8266esp32">ESP8266和ESP32专用库</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../esp32/quickref.html">ESP32 快速参考手册</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MicroPython</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">MicroPython 相关库</a> &raquo;</li>
+          <li><a href="network.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">network</span></code> — network configuration</a> &raquo;</li>
+      <li>class Ethernet – 哥伦布STM32开发板内部以太网控制</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/library/network.Ethernet.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-ethernet-stm32">
+<span id="network-ethernet"></span><h1>class Ethernet – 哥伦布STM32开发板内部以太网控制<a class="headerlink" href="#class-ethernet-stm32" title="Permalink to this headline">¶</a></h1>
+<p>这个模块用于哥伦布STM32开发板内部以太网控制</p>
+<p>使用示例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">network</span>
+<span class="n">nic</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">Ethernet</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nic</span><span class="o">.</span><span class="n">ifconfig</span><span class="p">())</span>
+
+<span class="c1"># now use socket as usual</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<section id="id1">
+<h2>构造函数<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="network.Ethernet">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">network.</span></span><span class="sig-name descname"><span class="pre">Ethernet</span></span><a class="headerlink" href="#network.Ethernet" title="Permalink to this definition">¶</a></dt>
+<dd><p>构建以太网对象。</p>
+<p>例如，你可以这么构建:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nic</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">Ethernet</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="id2">
+<h2>使用方法<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<dl class="py method">
+<dt class="sig sig-object py" id="network.Ethernet.isconnected">
+<span class="sig-prename descclassname"><span class="pre">Ethernet.</span></span><span class="sig-name descname"><span class="pre">isconnected</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#network.Ethernet.isconnected" title="Permalink to this definition">¶</a></dt>
+<dd><p>以太网物联连接已建立返回 <code class="docutils literal notranslate"><span class="pre">True</span></code>，否则返回``False``。</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="network.Ethernet.ifconfig">
+<span class="sig-prename descclassname"><span class="pre">Ethernet.</span></span><span class="sig-name descname"><span class="pre">ifconfig</span></span><span class="sig-paren">(</span><span class="optional">[</span><em class="sig-param"><span class="pre">(ip</span></em>, <em class="sig-param"><span class="pre">subnet</span></em>, <em class="sig-param"><span class="pre">gateway</span></em>, <em class="sig-param"><span class="pre">dns)</span></em><span class="optional">]</span><span class="sig-paren">)</span><a class="headerlink" href="#network.Ethernet.ifconfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>获取/自动/手动分配IP地址。不传递任何参数表示获取当前IP地址信息。该函数返回上面4个数据。</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">dhcp</span></code> 自动分配IP地址：</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(ip,</span> <span class="pre">subnet,</span> <span class="pre">gateway,</span> <span class="pre">dns)</span></code> 手动分配IP地址。</p></li>
+</ul>
+</div></blockquote>
+<p>示例:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nic</span><span class="o">.</span><span class="n">ifconfig</span><span class="p">((</span><span class="s1">&#39;192.168.0.4&#39;</span><span class="p">,</span> <span class="s1">&#39;255.255.255.0&#39;</span><span class="p">,</span> <span class="s1">&#39;192.168.0.1&#39;</span><span class="p">,</span> <span class="s1">&#39;8.8.8.8&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="network.WIZNET5K.html" class="btn btn-neutral float-left" title="class WIZNET5K – control WIZnet5x00 Ethernet modules" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ubluetooth.html" class="btn btn-neutral float-right" title="ubluetooth — low-level Bluetooth" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2014-2021, Damien P. George, Paul Sokolovsky, and contributors.
+      <span class="lastupdated">Last updated on 10 Nov 2021.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Versions and Downloads</span>
+    latest
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+      <dt>Versions</dt>
+      
+        <dd><a href="//en/latest">latest</a></dd>
+      
+    </dl>
+    <dl>
+      <dt>Downloads</dt>
+      
+        <dd><a href="//en/latest/micropython-docs.pdf">PDF</a></dd>
+      
+    </dl>
+    <hr/>
+    <dl>
+      <dt>External links</dt>
+        <dd>
+          <a href="https://www.micropython.org">micropython.org</a>
+        </dd>
+        <dd>
+          <a href="https://github.com/micropython/micropython">GitHub</a>
+        </dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
