@@ -120,6 +120,29 @@ The :mod:`ws2812` module::
     ws2812.set_pixels(led_matrix)     # 将8x8点阵设置为红色,亮度1
 
 
+陀螺仪/加速度计MPU6600
+---------------------
+
+The :mod:`mpu` module::
+
+    import mpu
+
+    mpu.get_raw() #返回一个原始数据tuple, 包括3轴加速度计,3轴陀螺仪,3轴磁力计,温度
+
+
+
+激光测距传感器VL53L0X
+---------------------
+
+The :mod:`vl53` module::
+
+    import vl53
+
+    vl53.valid()     # 测试传感器连接正常
+    vl53.get_distance() #返回测距结果，单位mm
+
+
+
 Networking
 ----------
 
