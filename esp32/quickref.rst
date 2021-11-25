@@ -80,8 +80,23 @@ The :mod:`drive` module::
 
     import drive
 
-    wheel_speed4 = [1000, -2000, 3000, -4000, 5000, 5000, 5000, 2500]
-    drive.set_raw(wheel_speed4) # 设置8个电机速度
+    wheel_speed8 = [1000, -2000, 3000, -4000, 5000, 5000, 5000, 2500]
+    drive.set_raw(wheel_speed8) # 设置8个电机速度
+
+    speed4 = [2000, 2000, 2000, 2000]
+    drive.set_direct(speed4)    #设置4个编码电机速度
+
+    speed3 = [1000, 2000, 3000]
+    drive.set_open(speed3)      #设置3个直流电机速度
+
+    bldc = [2000]
+    drive.set_brushless(bldc)   #设置无刷电机速度
+
+    drive.set_index(i, speed)   #设置第i个电机的速度
+
+    drive.esc_calib()           #开始执行无刷电调校准，调用前取下电池，调用后请立刻给电调接电池
+
+    drive.set_bldc100(78)       #设置无刷电机速度=百分比78%
 
     drive.encoders() # 返回一个长度4的tuple 类似(20, 31, 0, 233)表示编码器的值
 
@@ -99,6 +114,8 @@ The :mod:`rc` module::
     rc.keys()       # 返回类似(1,0,0,0, ...)的tuple, 表示当前所有按键的状态
     rc.dirs()       # 返回类似(0,0,0,1)的tuple, 表示方向键右 按下
 
+    rc.get_joystick('LX')   #获取LX摇杆值。可以是'LY' 'RX' 'RY'
+    rc.is_key_pressed('R1') #获取R1按键值。可以是字符串L1 L2 R1 R2 X Y A B UP DOWN LEFT RIGHT POWER BT START
 
 灯条/点阵ws2812
 ---------------------
