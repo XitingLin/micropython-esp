@@ -72,6 +72,7 @@ The :mod:`esp32` module::
 ---------------------
 
 ESP32主控连接了一个电机驱动，其中包括
+
 1. 4路带编码器的直流电机驱动。速度范围[-5000,5000], 编码器范围[0,504]
 2. 3路开环直流电机驱动。速度范围[-5000,5000]
 3. 1路无刷电机驱动。速度范围[0,5000]. （注：交换无刷电机的3相线其中2根可以使电机反转）
@@ -94,7 +95,8 @@ The :mod:`drive` module::
 
     drive.set_index(i, speed)   #设置第i个电机的速度
 
-    drive.esc_calib()           #开始执行无刷电调校准，调用前取下电池，调用后请立刻给电调接电池
+    drive.esc_calib_start()     #开始执行无刷电调校准,设置最大速度100%
+    drive.esc_calib_end()       #结束执行无刷电调校准,设置最小速度0%
 
     drive.set_bldc100(78)       #设置无刷电机速度=百分比78%
 
@@ -116,6 +118,7 @@ The :mod:`rc` module::
 
     rc.get_joystick('LX')   #获取LX摇杆值。可以是'LY' 'RX' 'RY'
     rc.is_key_pressed('R1') #获取R1按键值。可以是字符串L1 L2 R1 R2 X Y A B UP DOWN LEFT RIGHT POWER BT START
+
 
 灯条/点阵ws2812
 ---------------------
@@ -145,7 +148,9 @@ The :mod:`mpu` module::
     import mpu
 
     mpu.get_raw() #返回一个原始数据tuple, 包括3轴加速度计,3轴陀螺仪,3轴磁力计,温度
-
+    mpu.get_axis('AX')  #返回x轴的加速度计数值 可以是 'AX' 'AY' 'AZ'
+    mpu.get_axis('GX')  #返回x轴的角速度计数值 可以是 'GX' 'GY' 'GZ'
+    mpu.get_axis('MX')  #返回x轴的磁力计数值   可以是 'MX' 'MY' 'MZ'
 
 
 激光测距传感器VL53L0X
@@ -158,6 +163,19 @@ The :mod:`vl53` module::
     vl53.valid()     # 测试传感器连接正常
     vl53.get_distance() #返回测距结果，单位mm
 
+
+舵机接口
+---------------------
+舵机接口默认频率50hz 脉宽0.5~2.5ms对应角度0~180°
+
+The :mod:`vl53` module::
+
+    from machine import *
+
+    s0 = Servo(0)   #使用舵机接口0
+    s1 = Servo(1)   #使用舵机接口1
+    
+    s0.write_angle(180) #设置舵机角度180°
 
 
 Networking
