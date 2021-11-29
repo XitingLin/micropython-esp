@@ -151,6 +151,7 @@ The :mod:`mpu` module::
     mpu.get_axis('AX')  #返回x轴的加速度计数值 可以是 'AX' 'AY' 'AZ'
     mpu.get_axis('GX')  #返回x轴的角速度计数值 可以是 'GX' 'GY' 'GZ'
     mpu.get_axis('MX')  #返回x轴的磁力计数值   可以是 'MX' 'MY' 'MZ'
+    mpu.get_axis('EX')  #返回x轴的欧拉角数值   可以是 'EX' 'EY' 'EZ' *coming soon
 
 
 激光测距传感器VL53L0X
@@ -168,14 +169,33 @@ The :mod:`vl53` module::
 ---------------------
 舵机接口默认频率50hz 脉宽0.5~2.5ms对应角度0~180°
 
-The :mod:`vl53` module::
+The :mod:`Servo` module::
 
     from machine import *
 
     s0 = Servo(0)   #使用舵机接口0
     s1 = Servo(1)   #使用舵机接口1
-    
+
     s0.write_angle(180) #设置舵机角度180°
+
+
+蜂鸣器 coming soon.
+---------------------
+主控带了一个无源蜂鸣器 可以发出各种频率的声音和播放音符 音符范围3个八度[C2 D2 .... G4 A4 B4]
+
+The :mod:`Beep` module::
+
+    from machine import *
+
+    b1 = Beep()    #初始化蜂鸣器
+
+    b1.play(180, 3) #播放声音频率180hz 持续3s
+    b1.play_note('C4', 0.25)    #播放C4音符 持续0.25拍
+    
+
+按键 参考machine.Pin.
+---------------------
+
 
 
 Networking
