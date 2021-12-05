@@ -161,12 +161,15 @@ The :mod:`vl53` module::
 
     import vl53
 
+    vl53.init_pin(0)    ##初始化接在4p端口0的测距模块
+
     vl53.valid()     # 测试传感器连接正常
     vl53.get_distance() #返回测距结果，单位mm
 
 
 舵机接口
 ---------------------
+主板上共有4个舵机接口。
 舵机接口默认频率50hz 脉宽0.5~2.5ms对应角度0~180°
 
 The :mod:`Servo` module::
@@ -175,6 +178,9 @@ The :mod:`Servo` module::
 
     s0 = Servo(0)   #使用舵机接口0
     s1 = Servo(1)   #使用舵机接口1
+    s2 = Servo(2)   #使用舵机接口2
+    s3 = Servo(3)   #使用舵机接口3
+
 
     s0.write_angle(180) #设置舵机角度180°
 
@@ -196,6 +202,38 @@ The :mod:`Beep` module::
 按键 参考machine.Pin.
 ---------------------
 
+巡线传感器模块
+----------------------
+带4个检测灯和RGB补光灯的巡线模块，具备学习背景和线条反光亮度的功能。
+单击可以学习背景颜色， 双击学习线条颜色， 长按可以切换补光灯颜色。
+可以接在2个4pin端口上, 使用端口0和端口1来初始化
+
+The :mod:`tracker` module::
+
+    import tracker
+
+    tracker.init_pin(0)    #初始化接在4p端口0的巡线模块
+
+    tracker.set_rgb('R')    #设置补光灯。 可以是'R' 'G' 'B' 'OFF' 'RGB'
+    tracker.get_byte()      #获取当前检测状态, 低4位每bit代表每通道状态
+    tracker.is_tracker_match('0110') #判断当前状态
+    tracker.is_tracker_detect_back(0) #判断第ch检测到背景 ch:0~3
+
+
+
+二氧化碳传感器模块
+----------------------
+可以接在2个4pin端口上, 使用端口0和端口1来初始化
+
+The :mod:`co2` module::
+
+    import co2
+
+    co2.init_pin(0)    #初始化接在4p端口0的co2传感器模块
+
+    co2.get_eco2()    #读取二氧化碳浓度值 ppm
+
+    co2.get_tvoc()    #总有机物含量值
 
 
 Networking
