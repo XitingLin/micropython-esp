@@ -139,6 +139,35 @@ The :mod:`ws2812` module::
 
     ws2812.set_pixels(led_matrix)     # 将8x8点阵设置为红色,亮度1
 
+    ws2812.show_image('0123456789abcdef', [1,0,0])   #设置显示图案码，红色
+    ws2812.show_ascii('a', [0,1,0])                  #设置显示ascii码 'a'，绿色
+    ws2812.show_signs(ws2812.HEART, [0,0,1])          #设置显示图案心，蓝色
+    
+
+RGB8x8点阵模块
+---------------------
+串行信号RGB点阵模块共8x8=64个灯珠，主控是WS2812,每个灯珠使用使用3个字节表示RGB颜色， 亮度范围[0,255]
+可以显示字符，数字，符号等
+
+The :mod:`rgb88` module::
+
+    import rgb88
+
+    rgb88.set_raw(0, 128, 255)     # 设置第一个灯珠的颜色，依次是RGB
+
+    led_matrix = [x for x in range(64*3)]
+    for i in range(64):
+        led_matrix[i*3+0] = 1
+        led_matrix[i*3+1] = 0
+        led_matrix[i*3+2] = 0
+    # 这个list的值为(1,0,0, 1,0,0, ...), 分别表示RGB1, RGB2, ...
+
+    rgb88.set_pixels(led_matrix)                    # 将8x8点阵设置为红色,亮度1
+
+    rgb88.show_image('0123456789abcdef', [1,0,0])   #设置显示图案码，红色
+    rgb88.show_ascii('a', [0,1,0])                  #设置显示ascii码 'a'，绿色
+    rgb88.show_signs(rgb88.HEART, [0,0,1])          #设置显示图案心，蓝色
+
 
 陀螺仪/加速度计MPU6600
 ---------------------
@@ -216,9 +245,12 @@ The :mod:`tracker` module::
 
     tracker.set_rgb('R')    #设置补光灯。 可以是'R' 'G' 'B' 'OFF' 'RGB'
     tracker.get_byte()      #获取当前检测状态, 低4位每bit代表每通道状态
+    tracker.get_index(1)    #获取当前通道1检测状态 ch:0~3
+    tracker.get_raw(2)      #获取当前通道2原始数值 ch:0~3
     tracker.is_tracker_match('0110') #判断当前状态
     tracker.is_tracker_detect_back(0) #判断第ch检测到背景 ch:0~3
 
+    tracker.get_motor_delta() #获取默认巡线策略：电机差速
 
 
 二氧化碳传感器模块
