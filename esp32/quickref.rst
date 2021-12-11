@@ -124,6 +124,7 @@ The :mod:`rc` module::
 ---------------------
 串行信号RGB灯条，主控灯珠是WS2812,每个灯珠使用使用3个字节表示RGB颜色， 亮度范围[0,255]
 
+
 The :mod:`ws2812` module::
 
     import ws2812
@@ -143,6 +144,49 @@ The :mod:`ws2812` module::
     ws2812.show_ascii('a', [0,1,0])                  #设置显示ascii码 'a'，绿色
     ws2812.show_signs(ws2812.HEART, [0,0,1])          #设置显示图案心，蓝色
     
+    图案可以取值如下
+    
+        ::
+
+            ws2812.ARROW_F,
+            ws2812.ARROW_B,
+            ws2812.ARROW_R,
+            ws2812.ARROW_L,
+            ws2812.TRIANGLE_F,
+            ws2812.TRIANGLE_B,
+            ws2812.TRIANGLE_R,
+            ws2812.TRIANGLE_L,
+            ws2812.SMILE,
+            ws2812.AIM,
+            ws2812.HEART,
+            ws2812.DIAMOND,
+            ws2812.CLUB,
+            ws2812.SPADE,
+            ws2812.PIE,
+            ws2812.PIE2,
+            ws2812.CIRCLE,
+            ws2812.CIRCLE2,
+            ws2812.BOY,
+            ws2812.GIRL,
+            ws2812.NOTE,
+            ws2812.NOTE2,
+            ws2812.LIGHT,
+            ws2812.ARROW_FB,
+            ws2812.DOUBLE_EXCLAMATION,
+            ws2812.ARROW_LR,
+            ws2812.HOUSE,
+            ws2812.HAPPY,
+            ws2812.CRY,
+            ws2812.CORRECT,
+            ws2812.WRONG,
+            ws2812.ARROW_LB,
+            ws2812.ARROW_RB,
+            ws2812.ARROW_LF,
+            ws2812.ARROW_RF,
+            ws2812.HEART_SMALL,
+            ws2812.HEART_BIG,
+
+
 
 RGB8x8点阵模块
 ---------------------
