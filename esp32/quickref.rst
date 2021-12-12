@@ -128,8 +128,9 @@ The :mod:`rc` module::
 The :mod:`ws2812` module::
 
     import ws2812
-
-    ws2812.set_raw(0, 128, 255)     # 设置第一个灯珠的颜色，依次是RGB
+    ws2812.init_pin(0)              # 初始化灯条/点阵模块在端口0
+    ws2812.set_pixel(0, [0,0,1])     # 灯条/点阵设置第0个为蓝色
+    ws2812.set_raw(0, 128, 255)     # 设置第0个灯珠的颜色，依次是RGB
 
     led_matrix = [x for x in range(64*3)]
     for i in range(64):
@@ -137,15 +138,18 @@ The :mod:`ws2812` module::
         led_matrix[i*3+1] = 0
         led_matrix[i*3+2] = 0
     # 这个list的值为(1,0,0, 1,0,0, ...), 分别表示RGB1, RGB2, ...
-
+    
     ws2812.set_pixels(led_matrix)     # 将8x8点阵设置为红色,亮度1
+
+    
 
     ws2812.show_image('0123456789abcdef', [1,0,0])   #设置显示图案码，红色
     ws2812.show_ascii('a', [0,1,0])                  #设置显示ascii码 'a'，绿色
+    ws2812.show_string('hello', [0,1,0])             #设置显示滚动字符串，绿色
     ws2812.show_signs(ws2812.HEART, [0,0,1])          #设置显示图案心，蓝色
     
     图案可以取值如下
-    
+
         ::
 
             ws2812.ARROW_F,
