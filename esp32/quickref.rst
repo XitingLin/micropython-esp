@@ -101,8 +101,11 @@ The :mod:`drive` module::
     drive.set_bldc100(78)       #设置无刷电机速度=百分比78%
 
     drive.encoders() # 返回一个长度4的tuple 类似(20, 31, 0, 233)表示编码器的值
+    
+    drive.tt_run_v_turn(index, speed, turns)  #TT塑料电机i 以速度speed (0~100) 旋转n圈 然后停
+    drive.xyt_run_v_turn(index, speed, turns) #XYT金属电机i 以速度speed (0~100) 旋转n圈 然后停
 
-
+    
 遥控器信号
 ---------------------
 
